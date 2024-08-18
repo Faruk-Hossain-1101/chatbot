@@ -62,7 +62,6 @@ async def ask_question(request: Request, body: QuestionRequest ):
     if not vectorstore:
         vectorstore_path = generate_file_path('default')
         vectorstore = load_vectorstore(vectorstore_path)
-        # return {"message": "No vectorstore found for the IP address"}
 
     # Retrieve conversation history from session
     session = request.session

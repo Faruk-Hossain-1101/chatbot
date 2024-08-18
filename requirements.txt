@@ -8,3 +8,8 @@ faiss-cpu
 python-multipart
 python-dotenv
 itsdangerous
+pytest
+httpx
+reportlab
+coverage 
+pytest-cov
