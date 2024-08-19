@@ -4,7 +4,7 @@ import multiprocessing
 from starlette.middleware.sessions import SessionMiddleware
 from dotenv import load_dotenv
 from pydantic import BaseModel
-from utils import (
+from .utils import (
     process_pdf, 
     get_text_chunks, 
     get_conversation_chain, 
@@ -54,7 +54,7 @@ class QuestionRequest(BaseModel):
 
 @app.post("/ask-question/")
 async def ask_question(request: Request, body: QuestionRequest ):
-    ip_address = request.client.host
+    ip_address = request.headers.get("X-Forwarded-For", request.client.host)
     vectorstore_path = generate_file_path(ip_address)
     # Load vectorstore
     vectorstore = load_vectorstore(vectorstore_path)

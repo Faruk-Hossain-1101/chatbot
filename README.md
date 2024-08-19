@@ -4,6 +4,7 @@ This API allows users to upload PDF files and ask questions based on the content
 
 ## Table of Contents
 - [Installation](#installation)
+- [Run Test](#run-test)
 - [API Endpoints Documentation](#api-endpoints-documentation)
   - [Upload PDF](#upload-pdf)
   - [Ask Question](#ask-question)
@@ -39,6 +40,10 @@ This API allows users to upload PDF files and ask questions based on the content
     ```
     uvicorn main:app --reload
     ```
+## Run Test
+```
+coverage run -m pytest && coverage html
+```
 
 ## API Endpoints Documentation
 
