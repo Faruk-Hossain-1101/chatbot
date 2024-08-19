@@ -38,7 +38,7 @@ This API allows users to upload PDF files and ask questions based on the content
 
 4. **Run the application:**
     ```
-    uvicorn main:app --reload
+    uvicorn app.main:app --reload
     ```
 ## Run Test
 ```
