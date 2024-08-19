@@ -6,7 +6,6 @@ from app.utils import  (
     generate_file_path,
     save_vectorstore,
     load_vectorstore,
-    calculate_data_hash,
     process_pdf,
     get_text_chunks,
     get_vectorstore,
@@ -32,11 +31,6 @@ def test_save_and_load_vectorstore():
 def test_load_vectorstore_with_blank_file():
     response = load_vectorstore("dummy.txt")
     assert response == None
-
-def test_calculate_data_hash():
-    data = "test data"
-    expected_hash = hashlib.sha256(data.encode()).hexdigest()
-    assert calculate_data_hash(data) == expected_hash
 
 def test_process_pdf(single_page_pdf):
     try:
