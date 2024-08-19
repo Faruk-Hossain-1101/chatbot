@@ -89,5 +89,5 @@ async def ask_question(request: Request, body: QuestionRequest ):
 
     return {
         "answer": answer,
-        "conversation": conversation_history,
+        "conversation": answer,
     }
