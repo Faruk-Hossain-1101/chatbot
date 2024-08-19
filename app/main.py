@@ -5,7 +5,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from dotenv import load_dotenv
 from pydantic import BaseModel
 import mimetypes
-from .utils import (
+from app.utils import (
     process_pdf, 
     get_text_chunks, 
     get_conversation_chain, 

@@ -1,7 +1,6 @@
 import io
 import os
 import pickle
-import hashlib
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceInferenceAPIEmbeddings
