@@ -35,8 +35,9 @@ This API allows users to upload PDF files and ask questions based on the content
     ```
     pip install -r requirements.txt
     ```
+4. Create a .env from example.env and add the appropriate value
 
-4. **Run the application:**
+5. **Run the application:**
     ```
     uvicorn app.main:app --reload
     ```
