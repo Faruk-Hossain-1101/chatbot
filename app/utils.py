@@ -83,7 +83,7 @@ def get_conversation_chain(vectorstore, question):
 
         llm = HuggingFaceEndpoint(
             repo_id=repo_id,
-            max_length=128,
+            max_new_tokens=512,
             temperature=0.5,
             huggingfacehub_api_token=os.environ.get('HUGGINGFACEHUB_API_TOKEN'),
         )
