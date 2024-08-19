@@ -3,7 +3,6 @@ uvicorn
 PyPDF2
 langchain
 langchain-community
-langchain_huggingface
 faiss-cpu
 python-multipart
 python-dotenv
