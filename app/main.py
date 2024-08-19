@@ -4,6 +4,7 @@ import multiprocessing
 from starlette.middleware.sessions import SessionMiddleware
 from dotenv import load_dotenv
 from pydantic import BaseModel
+import mimetypes
 from .utils import (
     process_pdf, 
     get_text_chunks, 
@@ -21,9 +22,16 @@ app.add_middleware(SessionMiddleware, secret_key=os.environ.get('SECRET_KEY'))
 
 @app.post("/upload-pdf/")
 async def read_pdfs(request: Request, files: list[UploadFile] = File(...)):
-    ip_address = request.client.host
+    ip_address = request.headers.get("X-Forwarded-For", request.client.host)
     try:
-        file_contents = [await file.read() for file in files]
+        file_contents = []
+        for file in files:
+            # Check MIME type
+            mime_type, _ = mimetypes.guess_type(file.filename)
+            if mime_type != 'application/pdf':
+                raise HTTPException(status_code=400, detail="Wrong file format. Only PDF files are allowed.")
+            
+            file_contents.append(await file.read())
 
         # Use multiprocessing to handle the PDF processing in parallel
         with multiprocessing.Pool(processes=multiprocessing.cpu_count()) as pool:

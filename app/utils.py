@@ -14,6 +14,7 @@ from langchain_community.llms.huggingface_endpoint import HuggingFaceEndpoint
 
 
 def generate_file_path(ip_address: str) -> str:
+    """To genarate PKL path path to store traind data"""
     directory = os.path.join(os.getcwd(),'pkls')
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -21,19 +22,19 @@ def generate_file_path(ip_address: str) -> str:
     return os.path.join(directory, f'vectorstore_{ip_address}.pkl')
 
 def save_vectorstore(vectorstore, file_path):
+    """To save train data into a PKL file"""
     with open(file_path, 'wb') as f:
         pickle.dump(vectorstore, f)
 
 def load_vectorstore(file_path):
+    """To load the train PKL data"""
     if os.path.exists(file_path):
         with open(file_path, 'rb') as f:
             return pickle.load(f)
     return None
 
-def calculate_data_hash(data: str) -> str:
-    return hashlib.sha256(data.encode()).hexdigest()
-
 def process_pdf(file_content: bytes) -> str:
+    """To process the pdf files get from user and return the text value"""
     try:
         pdf_file = io.BytesIO(file_content)
         reader = PdfReader(pdf_file)
@@ -48,6 +49,7 @@ def process_pdf(file_content: bytes) -> str:
         raise Exception(f"Error processing PDF: {str(e)}")
     
 def get_text_chunks(text):
+    """To make chhunks form the processed text"""
     text_splitter = CharacterTextSplitter(
         separator="\n",
         chunk_size=1000,
@@ -61,6 +63,7 @@ def get_text_chunks(text):
     return cleaned_chunks
 
 def get_vectorstore(text_chunks):
+    """To train the chunks data using HuggingFace api and store the data into FAISS database"""
     try:
         hf_embeddings = HuggingFaceInferenceAPIEmbeddings(
                     api_key=os.environ.get('HUGGINGFACEHUB_API_TOKEN'),
@@ -74,6 +77,7 @@ def get_vectorstore(text_chunks):
         raise Exception(f"Error while embeding: {str(e)}")
     
 def get_conversation_chain(vectorstore, question):
+    """To create a RAG conversation using the train data from users pdf file and user query"""
     try:
         retriever = vectorstore.as_retriever()
         repo_id = "mistralai/Mistral-7B-Instruct-v0.2"
